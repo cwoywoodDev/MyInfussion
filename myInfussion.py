@@ -17,12 +17,12 @@ st.set_page_config(
 )
 
 # =========================================================
-# 🎨 PALETA BOTÁNICA LUMINOSA Y ENERGÉTICA
+# 🎨 PALETA BOTÁNICA LUMINOSA Y ENERGÉTICA (100% OPACA EN MÓVIL)
 # =========================================================
 BG_CREMA = "#F4F2EC"        # Fondo principal cálido (no cansa la vista)
 BG_CARD = "#FFFFFF"         # Superficie limpia de tarjetas
-ROSA_SUAVE = "#E8CBD0"      # Contenedores suaves y acentos pastel
-ROSA_FLORAL = "#D8A2B6"     # Detalles alegres
+ROSA_SUAVE = "#E8CBD0"      # Fondo sólido de barra lateral
+ROSA_FLORAL = "#D8A2B6"     # Detalles y bordes alegres
 FRAMBUESA = "#BC7087"       # Acento vibrante cálido
 CIRUELA_MED = "#833A5E"     # Subtítulos y etiquetas
 BORDO_PROFUNDO = "#591721"  # Alertas y cuidados
@@ -38,16 +38,27 @@ st.markdown(f"""
         color: {TEXTO_OSCURO};
     }}
     [data-testid="stHeader"] {{
-        background-color: rgba(244, 242, 236, 0.85);
+        background-color: {BG_CREMA};
     }}
 
-    /* Barra lateral */
-    [data-testid="stSidebar"] {{
-        background-color: {ROSA_SUAVE}66;
-        border-right: 1px solid {ROSA_FLORAL};
+    /* Barra lateral 100% opaca (soluciona transparencia en celular) */
+    [data-testid="stSidebar"],
+    [data-testid="stSidebar"] > div:first-child,
+    section[data-testid="stSidebar"] > div {{
+        background-color: {ROSA_SUAVE} !important;
+        opacity: 1 !important;
+        border-right: 2px solid {ROSA_FLORAL};
+        box-shadow: 4px 0 18px rgba(38, 30, 55, 0.18);
     }}
     [data-testid="stSidebar"] * {{
-        color: {TEXTO_OSCURO};
+        color: {TEXTO_OSCURO} !important;
+    }}
+    [data-testid="stSidebar"] .stRadio label {{
+        background-color: rgba(255, 255, 255, 0.65);
+        padding: 8px 12px;
+        border-radius: 8px;
+        margin-bottom: 6px;
+        font-weight: 600;
     }}
 
     /* Etiquetas y textos generales */
@@ -65,7 +76,7 @@ st.markdown(f"""
 
     /* Tarjeta principal de encabezado de receta */
     .receta-card {{
-        background: linear-gradient(135deg, {BG_CARD} 0%, {ROSA_SUAVE}55 100%);
+        background: linear-gradient(135deg, {BG_CARD} 0%, {ROSA_SUAVE} 100%);
         border: 1px solid {ROSA_FLORAL};
         border-left: 6px solid {VERDE_BOSQUE};
         border-radius: 12px;
@@ -99,7 +110,7 @@ st.markdown(f"""
 
     /* Caja de Cuidados (Tono rosa / frambuesa cálido) */
     .alerta-cuidado {{
-        background-color: {ROSA_SUAVE}4D;
+        background-color: {ROSA_SUAVE};
         border: 1px solid {FRAMBUESA}88;
         border-top: 4px solid {CIRUELA_MED};
         border-radius: 10px;
@@ -129,8 +140,8 @@ st.markdown(f"""
 # 🧭 NAVEGACIÓN LATERAL
 # =========================================================
 with st.sidebar:
-    st.markdown(f"<h2 style='color: {VERDE_BOSQUE}; margin-bottom: 0;'>🌿 Botica Herbal</h2>", unsafe_allow_html=True)
-    st.markdown(f"<p style='color: {CIRUELA_MED}; font-size: 0.9em; margin-top: 2px; font-weight: 500;'>Recetario & Consultor Fitoterapéutico</p>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='color: {VERDE_BOSQUE} !important; margin-bottom: 0;'>🌿 Botica Herbal</h2>", unsafe_allow_html=True)
+    st.markdown(f"<p style='color: {CIRUELA_MED} !important; font-size: 0.9em; margin-top: 2px; font-weight: 600;'>Recetario & Consultor Fitoterapéutico</p>", unsafe_allow_html=True)
     st.write("---")
 
     opcion = st.radio(
